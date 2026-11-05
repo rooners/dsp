@@ -1,3 +1,4 @@
+sudo docker exec -it amp-ads bash -c 'cat << "EOF" > /home/amp/.ampdata/instances/ADS01/Plugins/ADSModule/DeploymentTemplates/rooners-dsp-main/dysonsphereprogramnebula.kvp
 Meta.AppConfigId=a3e2182d-e221-4d1a-a035-7c87cbbdc512
 Meta.DisplayName=Dyson Sphere Program (Nebula Mod)
 Meta.Description=Headless dedicated server for Dyson Sphere Program powered by BepInEx and the Nebula Multiplayer Mod.
@@ -8,6 +9,7 @@ Meta.ConfigRoot=dysonsphereprogramnebula.kvp
 Meta.ConfigManifest=dysonsphereprogramnebulaconfig.json
 Meta.SpecificDockerImage=ghcr.io/cubecoders/ampbase-wine:latest
 Meta.DockerRequired=True
+GenericModule.Meta.DisplayImageSource=https://cdn.cloudflare.steamstatic.com/steam/apps/1366540/header.jpg
 
 App.DisplayName=Dyson Sphere Program (Nebula Mod)
 App.ExecutableWindows=DSPGAME.exe
@@ -29,3 +31,4 @@ App.GracefulShutdownTime=30
 
 Metrics.CpuUsage=True
 Metrics.MemoryUsage=True
+EOF'
