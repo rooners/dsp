@@ -1,0 +1,31 @@
+Meta.AppConfigId=a3e2182d-e221-4d1a-a035-7c87cbbdc512
+Meta.DisplayName=Dyson Sphere Program (Nebula Mod)
+Meta.Description=Headless dedicated server for Dyson Sphere Program powered by BepInEx and the Nebula Multiplayer Mod.
+Meta.Author=Community
+Meta.URL=https://github.com/NebulaModTeam/nebula
+Meta.OS=2
+Meta.ConfigRoot=dysonsphereprogramnebula.kvp
+Meta.ConfigManifest=dysonsphereprogramnebulaconfig.json
+Meta.SpecificDockerImage=ghcr.io/cubecoders/ampbase-wine:latest
+Meta.DockerRequired=True
+
+App.DisplayName=Dyson Sphere Program (Nebula Mod)
+App.ExecutableWindows=DSPGAME.exe
+App.ExecutableLinux=DSPGAME.exe
+App.CompatibilityLayer=Wine
+App.WorkingDir=./
+App.Ports=@IncludeJson[dysonsphereprogramnebulaports.json]
+App.PrimaryApplicationPortRef=Nebula Multiplayer Port
+
+App.CommandLineArguments=-batchmode -nographics -nebula-server {{$FormattedArgs}}
+App.CommandLineFormat={0} {1}
+App.CommandLineDelimiter=
+
+App.AdminMethod=STDIO
+App.HasReadableConsole=True
+App.HasWriteableConsole=True
+App.StopMessage=quit\n
+App.GracefulShutdownTime=30
+
+Metrics.CpuUsage=True
+Metrics.MemoryUsage=True

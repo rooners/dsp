@@ -1,0 +1,42 @@
+[
+  {
+    "Category": "Nebula Server Settings",
+    "Name": "Server Password",
+    "Description": "Password required for players to join the dedicated server. Leave blank for no password.",
+    "Type": "Password",
+    "Key": "Nebula.Password",
+    "Format": "-nebula-password \"{0}\"",
+    "DefaultValue": "",
+    "Required": false
+  },
+  {
+    "Category": "Nebula Server Settings",
+    "Name": "Target UPS",
+    "Description": "Target updates per second (game simulation ticks) for the dedicated server.",
+    "Type": "Number",
+    "Key": "Nebula.TargetUPS",
+    "Format": "-nebula-ups {0}",
+    "DefaultValue": "60",
+    "Required": false
+  },
+  {
+    "Category": "Nebula Server Settings",
+    "Name": "Auto Save Interval (Minutes)",
+    "Description": "Frequency in minutes at which the server automatically saves the game state.",
+    "Type": "Number",
+    "Key": "Nebula.AutoSaveInterval",
+    "Format": "-nebula-autosave {0}",
+    "DefaultValue": "10",
+    "Required": false
+  },
+  {
+    "Category": "Nebula Server Settings",
+    "Name": "Server Save Name",
+    "Description": "Name of the save file to create or load upon starting the server.",
+    "Type": "Text",
+    "Key": "Nebula.SaveName",
+    "Format": "-nebula-save \"{0}\"",
+    "DefaultValue": "ServerSave",
+    "Required": false
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "id": "dsp-nebula",
+  "name": "Dyson Sphere Program Nebula",
+  "author": "Community",
+  "origin": "generic",
+  "url": "https://github.com/NebulaModTeam/nebula",
+  "prefix": "[DSP] ",
+  "repotype": "AppTemplates",
+  "templates": [
+    "dysonsphereprogramnebula.kvp"
+  ]
+}
