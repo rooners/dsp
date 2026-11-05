@@ -14,13 +14,16 @@ GenericModule.Meta.MinAMPVersion=2.0.0.0
 
 App.DisplayName=Dyson Sphere Program (Nebula Mod)
 App.ExecutableWindows=DSPGAME.exe
-App.ExecutableLinux=DSPGAME.exe
+
 App.CompatibilityLayer=Wine
 App.WorkingDir=./
 App.Ports=@IncludeJson[dysonsphereprogramnebulaports.json]
 App.PrimaryApplicationPortRef=Nebula Multiplayer Port
 
-App.CommandLineArguments=-batchmode -nographics -nebula-server {{$FormattedArgs}}
+
+App.ExecutableLinux=wine
+App.CommandLineArguments=DSPGAME.exe -batchmode -nographics -nebula-server {{$FormattedArgs}}
+
 App.CommandLineFormat={0} {1}
 App.CommandLineDelimiter=
 
