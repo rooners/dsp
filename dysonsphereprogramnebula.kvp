@@ -10,6 +10,7 @@ Meta.ConfigManifest=dysonsphereprogramnebulaconfig.json
 Meta.SpecificDockerImage=ghcr.io/cubecoders/ampbase-wine:latest
 Meta.DockerRequired=False
 GenericModule.Meta.DisplayImageSource=https://cdn.cloudflare.steamstatic.com/steam/apps/1366540/header.jpg
+GenericModule.Meta.MinAMPVersion=2.0.0.0
 
 App.DisplayName=Dyson Sphere Program (Nebula Mod)
 App.ExecutableWindows=DSPGAME.exe
