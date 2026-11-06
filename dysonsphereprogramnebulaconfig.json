@@ -1,42 +1,87 @@
 [
   {
-    "Category": "Nebula Server Settings",
-    "Name": "Server Password",
-    "Description": "Password required for players to join the dedicated server. Leave blank for no password.",
-    "Type": "Password",
-    "Key": "Nebula.Password",
-    "Format": "-nebula-password \"{0}\"",
-    "DefaultValue": "",
-    "Required": false
+    "DisplayName": "Load Latest Save",
+    "Category": "Nebula Server:dns",
+    "Description": "Automatically load the newest save file on server startup.",
+    "Keywords": "save,load,latest",
+    "FieldName": "LoadLatest",
+    "InputType": "checkbox",
+    "IsFlagArgument": true,
+    "IncludeInCommandLine": true,
+    "DefaultValue": "-load-latest"
   },
   {
-    "Category": "Nebula Server Settings",
-    "Name": "Target UPS",
-    "Description": "Target updates per second (game simulation ticks) for the dedicated server.",
-    "Type": "Number",
-    "Key": "Nebula.TargetUPS",
-    "Format": "-nebula-ups {0}",
-    "DefaultValue": "60",
-    "Required": false
+    "DisplayName": "Specific Save Name",
+    "Category": "Nebula Server:dns",
+    "Description": "Name of a specific save file to load (without .dsv extension). Leave blank to use 'Load Latest Save'.",
+    "Keywords": "save,load,file",
+    "FieldName": "LoadSave",
+    "InputType": "text",
+    "ParamFieldName": "load",
+    "IncludeInCommandLine": true,
+    "DefaultValue": ""
   },
   {
-    "Category": "Nebula Server Settings",
-    "Name": "Auto Save Interval (Minutes)",
-    "Description": "Frequency in minutes at which the server automatically saves the game state.",
-    "Type": "Number",
-    "Key": "Nebula.AutoSaveInterval",
-    "Format": "-nebula-autosave {0}",
-    "DefaultValue": "10",
-    "Required": false
+    "DisplayName": "Target UPS",
+    "Category": "Nebula Server:dns",
+    "Description": "Target simulation updates per second (ticks) for the dedicated server (5 to 240).",
+    "Keywords": "ups,ticks,fps,performance",
+    "FieldName": "TargetUPS",
+    "InputType": "number",
+    "ParamFieldName": "ups",
+    "IncludeInCommandLine": true,
+    "DefaultValue": "60"
   },
   {
-    "Category": "Nebula Server Settings",
-    "Name": "Server Save Name",
-    "Description": "Name of the save file to create or load upon starting the server.",
-    "Type": "Text",
-    "Key": "Nebula.SaveName",
-    "Format": "-nebula-save \"{0}\"",
-    "DefaultValue": "ServerSave",
-    "Required": false
+    "DisplayName": "Server Password",
+    "Category": "Nebula Server:dns",
+    "Description": "Password required for players to join the server. Leave blank for no password.",
+    "Keywords": "password,join,security",
+    "FieldName": "ServerPassword",
+    "InputType": "password",
+    "ParamFieldName": "Server.ServerPassword",
+    "IncludeInCommandLine": false,
+    "DefaultValue": ""
+  },
+  {
+    "DisplayName": "Auto Pause When Empty",
+    "Category": "Nebula Server:dns",
+    "Description": "Automatically pause the game simulation when no players are connected to the server.",
+    "Keywords": "pause,autopause,empty",
+    "FieldName": "AutoPause",
+    "InputType": "checkbox",
+    "ParamFieldName": "Server.AutoPauseEnabled",
+    "IncludeInCommandLine": false,
+    "DefaultValue": "true",
+    "EnumValues": {
+      "True": "true",
+      "False": "false"
+    }
+  },
+  {
+    "DisplayName": "Remote Access Enabled",
+    "Category": "Nebula Server:dns",
+    "Description": "Allow authenticated clients to execute remote server management commands.",
+    "Keywords": "remote,admin,rcon",
+    "FieldName": "RemoteAccessEnabled",
+    "InputType": "checkbox",
+    "ParamFieldName": "Server.RemoteAccessEnabled",
+    "IncludeInCommandLine": false,
+    "DefaultValue": "false",
+    "EnumValues": {
+      "True": "true",
+      "False": "false"
+    }
+  },
+  {
+    "DisplayName": "Remote Access Password",
+    "Category": "Nebula Server:dns",
+    "Description": "Password required for clients to authenticate for remote management commands (/server login <password>).",
+    "Keywords": "remote,password,admin",
+    "FieldName": "RemoteAccessPassword",
+    "InputType": "password",
+    "ParamFieldName": "Server.RemoteAccessPassword",
+    "IncludeInCommandLine": false,
+    "DefaultValue": ""
   }
 ]

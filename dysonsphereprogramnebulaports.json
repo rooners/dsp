@@ -1,8 +1,9 @@
 [
   {
-    "Ref": "Nebula Multiplayer Port",
-    "Port": 8469,
     "Protocol": "Both",
+    "Port": 8469,
+    "Ref": "NebulaPort",
+    "Name": "Nebula Multiplayer Port",
     "Description": "Primary UDP and TCP networking port for Nebula multiplayer connections"
   }
 ]
