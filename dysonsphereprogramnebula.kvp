@@ -18,21 +18,22 @@ Meta.DisplayImageSource=steam:1366540
 Meta.MinAMPVersion=2.5.0.0
 
 App.DisplayName=Dyson Sphere Program (Nebula Mod)
-App.RootDir=./GenericApplication/
-App.WorkingDir=./GenericApplication/
+App.RootDir=./
+App.BaseDirectory=./
+App.WorkingDir=./
 App.Ports=@IncludeJson[dysonsphereprogramnebulaports.json]
 App.PrimaryApplicationPortRef=NebulaPort
 
 App.ExecutableWin=DSPGAME.exe
 App.ExecutableLinux=/usr/bin/xvfb-run
-App.LinuxCommandLineArgs=-a wine "./DSPGAME.exe" -batchmode -nographics -nebula-server
-App.WindowsCommandLineArgs=-batchmode -nographics -nebula-server
-App.CommandLineArgs={{$PlatformArgs}} {{$FormattedArgs}}
+App.LinuxCommandLineArgs=-a wine "./DSPGAME.exe" -batchmode -nographics -nebula-server -load-latest -ups 60
+App.WindowsCommandLineArgs=-batchmode -nographics -nebula-server -load-latest -ups 60
+App.CommandLineArgs={{$PlatformArgs}}
 
 App.CommandLineParameterFormat=-{0} {1}
 App.CommandLineParameterDelimiter= 
 
-App.EnvironmentVariables={"SteamAppId":"1366540","WINEPREFIX":"{{$FullInstanceDir}}.wine","WINEARCH":"win64","WINEDEBUG":"-all","WINEDLLOVERRIDES":"winhttp=n,b"}
+App.EnvironmentVariables={"SteamAppId":"1366540","WINEPREFIX":"{{$FullRootDir}}.wine","WINEARCH":"win64","WINEDEBUG":"-all","WINEDLLOVERRIDES":"winhttp=n,b"}
 
 App.AdminMethod=STDIO
 App.HasReadableConsole=True
@@ -41,6 +42,9 @@ App.ExitMethod=OS_CLOSE
 App.ExitTimeout=30
 App.ExitString=quit
 App.GracefulShutdownTime=30
+
+Console.UserJoinRegex=^.*\[Info\s*:\s*NebulaMultiplayerMod\]\s*Client\d+\s*-\s*(?<username>.+?)\s+joined$
+Console.UserLeaveRegex=^.*\[Info\s*:\s*NebulaMultiplayerMod\]\s*Client\d+\s*-\s*(?<username>.+?)\s+(?:left|disconnected).*$
 
 Metrics.CpuUsage=True
 Metrics.MemoryUsage=True

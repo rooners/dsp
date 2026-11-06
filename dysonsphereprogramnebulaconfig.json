@@ -1,25 +1,19 @@
 [
   {
-    "DisplayName": "Load Latest Save",
+    "DisplayName": "Startup Mode",
     "Category": "Nebula Server:dns",
-    "Description": "Automatically load the newest save file on server startup.",
-    "Keywords": "save,load,latest",
-    "FieldName": "LoadLatest",
-    "InputType": "checkbox",
+    "Description": "How the dedicated server should initialize the game world on startup.",
+    "Keywords": "startup,save,newgame,load",
+    "FieldName": "StartupMode",
+    "InputType": "enum",
     "IsFlagArgument": true,
     "IncludeInCommandLine": true,
-    "DefaultValue": "-load-latest"
-  },
-  {
-    "DisplayName": "Specific Save Name",
-    "Category": "Nebula Server:dns",
-    "Description": "Name of a specific save file to load (without .dsv extension). Leave blank to use 'Load Latest Save'.",
-    "Keywords": "save,load,file",
-    "FieldName": "LoadSave",
-    "InputType": "text",
-    "ParamFieldName": "load",
-    "IncludeInCommandLine": true,
-    "DefaultValue": ""
+    "DefaultValue": "-newgame-default",
+    "EnumValues": {
+      "-newgame-default": "Start New Game (Default)",
+      "-load-latest": "Load Latest Save",
+      "-newgame-cfg": "Start New Game (from config)"
+    }
   },
   {
     "DisplayName": "Target UPS",

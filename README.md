@@ -7,9 +7,9 @@ CubeCoders AMP Generic Module template for running a headless dedicated server f
 ## 1. Deploying the Template to AMP
 
 ### Option A: Via AMP Web UI (Recommended)
-1. Go to your AMP ADS web panel (`http://<your_server>:<port>/`).
+1. In your AMP ADS web panel (`http://<your_server>:8080/`):
 2. Navigate to **Configuration** -> **Instance Deployment** -> **Template Repositories**.
-3. Add `https://github.com/rooners/dsp` as a new template repository.
+3. Add `https://github.com/rooners/dsp` as a template repository.
 4. Go to **Instances** -> **Create Instance** -> select **Dyson Sphere Program (Nebula Mod)**.
 
 ### Option B: Direct Copy to ADS Container
@@ -23,46 +23,72 @@ docker cp . amp-ads:/home/amp/.ampdata/instances/ADS01/Plugins/ADSModule/Generic
 
 ## 2. Server Files Setup (SFTP Upload)
 
-Because Dyson Sphere Program is a commercial Steam game without an anonymous SteamCMD server build, you must upload your game files into the instance's **`GenericApplication`** folder via SFTP.
+Because Dyson Sphere Program is a commercial Steam game without an anonymous SteamCMD server build, copy your game files and BepInEx installation into the instance root directory via SFTP (Port `2225` by default in AMP).
 
-### Exact Upload Path:
-`/DATA/AppData/amp/.ampdata/instances/DysonSphereProgramNebulaMod01/GenericApplication/`
+### Instance Root Directory:
+`/DATA/AppData/amp/.ampdata/instances/<InstanceName>/`
 
-### Upload Directory Layout Inside `GenericApplication/`:
+### Directory Layout Inside the Instance:
 ```text
-/GenericApplication/
+<InstanceName>/
 ├── DSPGAME.exe
 ├── DSPGAME_Data/
+│   ├── Plugins/
+│   │   └── x86_64/
+│   │       └── steam_api64.dll     (Replaced with Detanup01/gbe_fork build)
+├── MonoBleedingEdge/
 ├── UnityCrashHandler64.exe
 ├── UnityPlayer.dll
-├── steam_appid.txt             (Included in this repo with ID 1366540)
-├── winhttp.dll                 (From BepInEx 5 x64)
-├── doorstop_config.ini         (From BepInEx 5 x64)
+├── steam_appid.txt                 (1366540 - included in this repo)
+├── steam_api64.dll                 (Replaced with Detanup01/gbe_fork build)
+├── winhttp.dll                     (From BepInEx 5 x64)
+├── doorstop_config.ini             (From BepInEx 5 x64)
 └── BepInEx/
     ├── core/
     ├── config/
-    │   ├── BepInEx.cfg         (Ensure [Logging.Console] Enabled = true)
-    │   └── nebula.cfg          (Included in this repo)
+    │   ├── BepInEx.cfg             (Ensure [Logging.Console] Enabled = true)
+    │   └── nebula.cfg              (Multiplayer server config)
     ├── patchers/
-    │   └── NebulaPatcher.dll   (From Nebula Mod)
+    │   └── NebulaPatcher.dll
     └── plugins/
-        └── NebulaMultiplayerMod/
-            └── NebulaMultiplayerMod.dll
+        ├── NebulaMultiplayerMod/
+        │   └── NebulaMultiplayerMod.dll
+        └── ...
 ```
-
-### Critical Steps
-1. **BepInEx Architecture:** Ensure you install **BepInEx 5 x64** (64-bit).
-2. **DLL Override:** The template automatically sets `WINEDLLOVERRIDES="winhttp=n,b"` so Wine loads BepInEx.
-3. **Console Logging:** In `BepInEx/config/BepInEx.cfg`, change:
-   ```ini
-   [Logging.Console]
-   Enabled = true
-   ```
-   This allows AMP's web console to display live server status and logs.
-4. **Saves:** Place existing `.dsv` game saves into `GenericApplication/DSPGAME_Data/Save/` (or the Wine save directory).
 
 ---
 
-## 3. Ports & Networking
+## 3. Critical Configuration Steps
 
-* **Port 8469 (TCP & UDP):** The primary port used by Nebula. Ensure port 8469 is forwarded on your router if players are connecting over the internet.
+### 1. Steam Emulation (Headless Requirement)
+Because headless Linux servers do not run the Steam desktop client (`Steam.exe`), Dyson Sphere Program's `SteamAPI.Init()` will fail and abort without an emulator.
+- Download the latest 64-bit `steam_api64.dll` from **[Detanup01/gbe_fork Releases](https://github.com/Detanup01/gbe_fork/releases)** (asset `emu-win-release-vs22.7z` or `emu-win-release.7z`).
+- Replace `steam_api64.dll` in both:
+  1. The instance root directory
+  2. `DSPGAME_Data/Plugins/x86_64/`
+> **Important:** Use the **Detanup01 fork** of Goldberg emulator. The older original Goldberg build lacks modern `ISteamUserStats` exports required by Dyson Sphere Program, which causes an `EntryPointNotFoundException` and stops Nebula from binding port 8469.
+
+### 2. Wine DLL Override
+The template automatically injects `WINEDLLOVERRIDES="winhttp=n,b"` so Wine loads BepInEx's `winhttp.dll` hook instead of Wine's internal builtin library.
+
+### 3. Live Console Logging
+In `BepInEx/config/BepInEx.cfg`, verify:
+```ini
+[Logging.Console]
+Enabled = true
+```
+This enables Unity and Nebula server output to stream directly to AMP's web console.
+
+### 4. Startup Mode (New Game vs Existing Save)
+- **First Launch (Generate Galaxy):** Launch with `-newgame-default` in the command line arguments to create the universe.
+- **Subsequent Launches (Resume Save):** In `GenericModule.kvp` (or via AMP settings), use `-load-latest` to ensure restarts resume your progress without generating a new game:
+  ```ini
+  App.LinuxCommandLineArgs=-a wine "./DSPGAME.exe" -batchmode -nographics -nebula-server -load-latest -ups 60
+  ```
+
+---
+
+## 4. Ports & Networking
+
+* **Port 8469 (TCP & UDP):** The default port used by Nebula. Ensure port 8469 is forwarded or accessible via VPN (e.g. ZeroTier).
+* **Auto-Pause:** In `BepInEx/config/nebula.cfg`, `AutoPause = true` pauses simulation when all players disconnect, keeping idle CPU and memory consumption minimal.
