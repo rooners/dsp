@@ -18,8 +18,8 @@ Meta.DisplayImageSource=steam:1366540
 Meta.MinAMPVersion=2.5.0.0
 
 App.DisplayName=Dyson Sphere Program (Nebula Mod)
-App.RootDir=./
-App.WorkingDir=./
+App.RootDir=./GenericApplication/
+App.WorkingDir=./GenericApplication/
 App.Ports=@IncludeJson[dysonsphereprogramnebulaports.json]
 App.PrimaryApplicationPortRef=NebulaPort
 
@@ -32,7 +32,7 @@ App.CommandLineArgs={{$PlatformArgs}} {{$FormattedArgs}}
 App.CommandLineParameterFormat=-{0} {1}
 App.CommandLineParameterDelimiter= 
 
-App.EnvironmentVariables={"SteamAppId":"1366540","WINEPREFIX":"{{$FullRootDir}}.wine","WINEARCH":"win64","WINEDEBUG":"-all","WINEDLLOVERRIDES":"winhttp=n,b"}
+App.EnvironmentVariables={"SteamAppId":"1366540","WINEPREFIX":"{{$FullInstanceDir}}.wine","WINEARCH":"win64","WINEDEBUG":"-all","WINEDLLOVERRIDES":"winhttp=n,b"}
 
 App.AdminMethod=STDIO
 App.HasReadableConsole=True

@@ -23,13 +23,14 @@ docker cp . amp-ads:/home/amp/.ampdata/instances/ADS01/Plugins/ADSModule/Generic
 
 ## 2. Server Files Setup (SFTP Upload)
 
-Because Dyson Sphere Program is a commercial Steam game without an anonymous SteamCMD server build, you must upload your game files into the instance directory via SFTP.
+Because Dyson Sphere Program is a commercial Steam game without an anonymous SteamCMD server build, you must upload your game files into the instance's **`GenericApplication`** folder via SFTP.
 
-Connect to your instance's SFTP (found in AMP under **Configuration** -> **SFTP**):
+### Exact Upload Path:
+`/DATA/AppData/amp/.ampdata/instances/DysonSphereProgramNebulaMod01/GenericApplication/`
 
-### Upload Directory Layout
+### Upload Directory Layout Inside `GenericApplication/`:
 ```text
-/ (Instance Root)
+/GenericApplication/
 ├── DSPGAME.exe
 ├── DSPGAME_Data/
 ├── UnityCrashHandler64.exe
@@ -58,7 +59,7 @@ Connect to your instance's SFTP (found in AMP under **Configuration** -> **SFTP*
    Enabled = true
    ```
    This allows AMP's web console to display live server status and logs.
-4. **Saves:** Place existing `.dsv` game saves into `DSPGAME_Data/Save/` (or the wineprefix save directory).
+4. **Saves:** Place existing `.dsv` game saves into `GenericApplication/DSPGAME_Data/Save/` (or the Wine save directory).
 
 ---
 
