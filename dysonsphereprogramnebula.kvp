@@ -35,6 +35,9 @@ App.CommandLineParameterDelimiter=
 
 App.EnvironmentVariables={"SteamAppId":"1366540","WINEPREFIX":"{{$FullRootDir}}.wine","WINEARCH":"win64","WINEDEBUG":"-all","WINEDLLOVERRIDES":"winhttp=n,b"}
 
+App.MonitorChildProcessName=DSPGAME.exe
+App.MonitorDirectChildOnly=False
+
 App.AdminMethod=STDIO
 App.HasReadableConsole=True
 App.HasWriteableConsole=True
